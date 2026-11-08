@@ -8,7 +8,8 @@ public:
     linked_list();
     linked_list(T value);
     ~linked_list();
-
+    T* begin();
+    T* end();
     void push_front(T value);
     void push_back(T value);
     void display_list();
@@ -103,4 +104,16 @@ void linked_list<T>::display_list()
 
         temp_ptr = temp_ptr->next;
     }
+}
+
+template <typename T>
+T* linked_list<T>::begin()
+{
+    return &last_ptr->value;
+}
+
+template <typename T>
+T* linked_list<T>::end()
+{   
+    return &last_ptr->value;
 }

@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="TwoWayLinkedListLib.vcxproj" />
+  <Project Path="TwoWayLinkedListLib.vcxproj" Id="fed837de-c3a2-4535-ba81-7e46a0c918e7" />
 </Solution>
