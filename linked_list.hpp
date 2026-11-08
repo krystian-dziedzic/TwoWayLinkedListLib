@@ -1,3 +1,4 @@
+#include <iostream>
 #pragma once
 
 template <typename T>
@@ -9,10 +10,8 @@ public:
     ~linked_list();
 
     void push_front(T value);
-
-    T* get_first_ptr();
-    T* get_last_ptr();
-
+    void push_back(T value);
+    void display_list();
 private:
     struct Node
     {
@@ -21,7 +20,6 @@ private:
         Node* next = nullptr;
 
         Node(T value) : value(value) {}
-        Node(T value, Node* prev) : value(value), prev(prev) {}
     };
 
     Node* first_ptr = nullptr;
@@ -41,26 +39,59 @@ template <typename T>
 linked_list<T>::~linked_list() {};
 
 template <typename T>
-T* linked_list<T>::get_first_ptr()
-{
-    return first_ptr ? &first_ptr->value : nullptr;
-}
-
-template <typename T>
-T* linked_list<T>::get_last_ptr()
-{
-    return last_ptr ? &last_ptr->value : nullptr;
-}
-
-template <typename T>
 void linked_list<T>::push_front(T value)
 {
-    Node* first_ptr = get_first_ptr();
+    Node* temp_ptr = linked_list::last_ptr;
 
-    while (first_ptr->next != nullptr)
+    if (temp_ptr == nullptr)
     {
-        first_ptr = first_ptr->next;
-    }
+        temp_ptr = new Node(value);
 
-    first_ptr->next = new Node(value, first_ptr);
+        if (first_ptr == nullptr)
+        {
+            first_ptr = temp_ptr;
+            last_ptr = temp_ptr;
+        }
+
+        return;
+    }
+    Node* in = new Node(value);
+    first_ptr->next = in;
+    in->prev = first_ptr;
+    first_ptr = in;
+}
+
+template <typename T>
+void linked_list<T>::push_back(T value)
+{
+    Node* temp_ptr = linked_list::first_ptr;
+    if (temp_ptr == nullptr)
+    {
+        temp_ptr = new Node(value);
+        if (last_ptr == nullptr)
+        {
+            last_ptr = temp_ptr;
+            first_ptr = temp_ptr;
+        }
+        return;
+    }
+    Node* in = new Node(value);
+    last_ptr->prev = in;
+    in->next = last_ptr;
+    last_ptr = in;
+}
+
+template <typename T>
+void linked_list<T>::display_list()
+{
+    Node* temp_ptr = last_ptr;
+
+    while (temp_ptr != nullptr)
+    {
+        std::cout << temp_ptr << " "
+            << temp_ptr->prev << " "
+            << temp_ptr->next << "\n";
+
+        temp_ptr = temp_ptr->next;
+    }
 }
