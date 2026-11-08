@@ -36,7 +36,16 @@ linked_list<T>::linked_list(T value)
 }
 
 template <typename T>
-linked_list<T>::~linked_list() {};
+linked_list<T>::~linked_list() 
+{
+    Node* temp_ptr = first_ptr;
+    while (temp_ptr != nullptr)
+    {
+        Node* next = temp_ptr->next;
+        delete temp_ptr;
+        temp_ptr = next;
+    }
+};
 
 template <typename T>
 void linked_list<T>::push_front(T value)
