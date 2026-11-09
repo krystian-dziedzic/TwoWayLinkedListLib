@@ -7,7 +7,6 @@ class linked_list
 {
 public:
     linked_list();
-    linked_list(T value);
     ~linked_list();
 
     T* begin();
@@ -35,12 +34,6 @@ private:
 
 template <typename T>
 linked_list<T>::linked_list() {};
-
-template <typename T>
-linked_list<T>::linked_list(T value)
-{
-    Node* node = new Node(value);
-}
 
 template <typename T>
 linked_list<T>::~linked_list() 
