@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #pragma once
 
 template <typename T>
@@ -8,11 +9,16 @@ public:
     linked_list();
     linked_list(T value);
     ~linked_list();
+
     T* begin();
     T* end();
+
     void push_front(T value);
     void push_back(T value);
     void display_list();
+
+    //rvalue only operator overload
+    T& operator[](unsigned int&& index);
 private:
     struct Node
     {
@@ -116,4 +122,26 @@ template <typename T>
 T* linked_list<T>::end()
 {   
     return &last_ptr->value;
+}
+
+template <typename T>
+T& linked_list<T>::operator[](unsigned int&& index)
+{
+    unsigned int counter = 0;
+    auto current_ptr = first_ptr;
+
+    if (current_ptr == nullptr)
+        throw std::out_of_range("Invalid index");
+
+    while (counter < index)
+    {
+        current_ptr = current_ptr->prev;
+
+        if (current_ptr == nullptr)
+            throw std::out_of_range("Invalid index");
+
+        counter++;
+    }
+
+    return current_ptr->value;
 }
